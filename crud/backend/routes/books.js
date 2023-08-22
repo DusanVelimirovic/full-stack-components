@@ -4,7 +4,7 @@
 import express from "express";
 
 // Import controller function
-import { getBooks } from "../controllers/book.js";
+import { getBooks, postBook } from "../controllers/book.js";
 
 // Create router object
 const router = express.Router();
@@ -12,5 +12,9 @@ const router = express.Router();
 // Handle get request
 // Get all Books
 router.get("/", getBooks);
+
+// Handle post request
+// Post new book
+router.post("/", postBook);
 
 export default router;

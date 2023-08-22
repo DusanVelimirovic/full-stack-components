@@ -6,6 +6,9 @@ import booksRoute from "./routes/books.js";
 
 const app = express();
 
+// JSON middleware
+app.use(express.json());
+
 // Connect with DB
 //const db = connection.connect();
 console.log(db);
