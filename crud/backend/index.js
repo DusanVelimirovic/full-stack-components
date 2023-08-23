@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 
 // Define routes
 
-// Get books
+// Books route
 app.use("/api/books", booksRoute);
 
 app.listen(8800, () => {

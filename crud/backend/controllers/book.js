@@ -14,7 +14,6 @@ export const getBooks = (req, res) => {
 };
 
 // Post new Book to DB
-
 export const postBook = (req, res) => {
   // Define insert query
   const q = "INSERT INTO books(`title`, `desc`, `cover`) VALUES (?)";
