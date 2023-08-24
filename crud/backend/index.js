@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import { db } from "./connection.js";
 
 // Import routes
@@ -8,6 +9,9 @@ const app = express();
 
 // JSON middleware
 app.use(express.json());
+
+//CORS middleware
+app.use(cors());
 
 // Connect with DB
 //const db = connection.connect();
