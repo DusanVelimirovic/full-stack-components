@@ -16,8 +16,13 @@ export const getBooks = (req, res) => {
 // Post new Book to DB
 export const postBook = (req, res) => {
   // Define insert query
-  const q = "INSERT INTO books(`title`, `desc`, `cover`) VALUES (?)";
-  const values = [req.body.title, req.body.desc, req.body.cover];
+  const q = "INSERT INTO books(`title`, `desc`, `price`,`cover`) VALUES (?)";
+  const values = [
+    req.body.title,
+    req.body.desc,
+    req.body.price,
+    req.body.cover,
+  ];
 
   // Send query to DB
   db.query(q, [values], (err, data) => {
