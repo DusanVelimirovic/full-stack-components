@@ -30,3 +30,37 @@ export const postBook = (req, res) => {
     return res.status(200).json("New book has been created.");
   });
 };
+
+// Delete book from DB
+export const deleteBook = (req, res) => {
+  // Get books id
+  const bookId = req.params.id;
+
+  // Define delete query
+  const q = " DELETE FROM books WHERE id = ? ";
+
+  // Send query to DB
+  db.query(q, [bookId], (err, data) => {
+    if (err) return res.send(err);
+    return res.json(data);
+  });
+};
+
+// Update book in DB
+export const updateBook = (req, res) => {
+  const bookId = req.params.id;
+  const q =
+    "UPDATE books SET `title`= ?, `desc`= ?, `price`= ?, `cover`= ? WHERE id = ?";
+
+  const values = [
+    req.body.title,
+    req.body.desc,
+    req.body.price,
+    req.body.cover,
+  ];
+
+  db.query(q, [...values, bookId], (err, data) => {
+    if (err) return res.send(err);
+    return res.json(data);
+  });
+};

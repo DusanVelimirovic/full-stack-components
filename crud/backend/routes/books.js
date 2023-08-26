@@ -4,7 +4,12 @@
 import express from "express";
 
 // Import controller function
-import { getBooks, postBook } from "../controllers/book.js";
+import {
+  getBooks,
+  postBook,
+  deleteBook,
+  updateBook,
+} from "../controllers/book.js";
 
 // Create router object
 const router = express.Router();
@@ -16,5 +21,13 @@ router.get("/", getBooks);
 // Handle post request
 // Post new book
 router.post("/", postBook);
+
+// Handle delete request
+// Delete book
+router.delete("/:id", deleteBook);
+
+// Handle update request
+// Update book
+router.put("/:id", updateBook);
 
 export default router;
