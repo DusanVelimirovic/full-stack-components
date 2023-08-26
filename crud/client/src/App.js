@@ -8,7 +8,7 @@ import Update from "./pages/Update/Update.jsx";
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Books />} />

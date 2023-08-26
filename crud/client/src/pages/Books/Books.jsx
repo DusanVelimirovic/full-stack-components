@@ -24,7 +24,15 @@ const Books = () => {
     fetchAllBooks();
   }, []);
 
-  console.log(books);
+  // Delete book from DB
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:8800/api/books/${id}`);
+      window.location.reload()
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
 
   return (
@@ -37,6 +45,15 @@ const Books = () => {
           <h2>{book.title}</h2>
           <p>{book.desc}</p>
           <span>${book.price}</span>
+          <button className="delete" onClick={() => handleDelete(book.id)}>Delete</button>
+          <button className="update">
+            <Link
+              to={`/update/${book.id}`}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Update
+            </Link>
+           </button>
         </div>
       ))}
     </div>
@@ -44,7 +61,8 @@ const Books = () => {
         <Link to="/add" style={{ color: "inherit", textDecoration: "none" }}>
           Add new book
         </Link>
-      </button>
+    </button>
+
   </div>
   )
 }
