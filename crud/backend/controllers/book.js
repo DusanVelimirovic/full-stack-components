@@ -13,6 +13,20 @@ export const getBooks = (req, res) => {
   });
 };
 
+// Get exact book according to ID
+export const getExactBook = (req, res) => {
+  const bookId = req.params.id;
+  // Define Query
+  const q = "SELECT * FROM books WHERE id = ?";
+
+  // Send query to DB
+
+  db.query(q, [bookId], (err, result) => {
+    if (err) return res.status(500).json(err);
+    return res.json(result);
+  });
+};
+
 // Post new Book to DB
 export const postBook = (req, res) => {
   // Define insert query

@@ -6,6 +6,7 @@ import express from "express";
 // Import controller function
 import {
   getBooks,
+  getExactBook,
   postBook,
   deleteBook,
   updateBook,
@@ -17,6 +18,9 @@ const router = express.Router();
 // Handle get request
 // Get all Books
 router.get("/", getBooks);
+
+// Get individual book according with ID
+router.get("/:id", getExactBook);
 
 // Handle post request
 // Post new book
