@@ -1,23 +1,50 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Update = () => {
+
+  // Update current books details
+  
+  const [currentBook, setCurrentBook] = useState({
+    title: "",
+    desc: "",
+    price: "",
+    cover: "",
+  });
+  
   const [book, setBook] = useState({
     title: "",
     desc: "",
-    price: null,
+    price: "",
     cover: "",
   });
 
-  // Hendle errors
-  const [error,setError] = useState(false)
+    // Handle errors
+    const [error,setError] = useState(false)
 
-  const location = useLocation();
-  const navigate = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
+  
+    // Get book ID from url path
+    const bookId = location.pathname.split("/")[2];
 
-  // Get book ID from url path
-  const bookId = location.pathname.split("/")[2];
+  //useEffect
+  // Access and fetch data from backend api
+  useEffect(() => {
+    const fetchBook = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8800/api/books/${bookId}`);
+        setCurrentBook(res.data[0]);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchBook();
+
+  },[bookId]);
+
+
 
   const handleChange = (e) => {
     setBook((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -40,26 +67,26 @@ const Update = () => {
       <h1>Update the Book</h1>
       <input
         type="text"
-        placeholder="Book title"
+        placeholder={currentBook.title}
         name="title"
         onChange={handleChange}
       />
       <textarea
         rows={5}
         type="text"
-        placeholder="Book desc"
+        placeholder={currentBook.desc}
         name="desc"
         onChange={handleChange}
       />
       <input
         type="number"
-        placeholder="Book price"
+        placeholder={currentBook.price}
         name="price"
         onChange={handleChange}
       />
       <input
         type="text"
-        placeholder="Book cover"
+        placeholder={currentBook.cover}
         name="cover"
         onChange={handleChange}
       />
