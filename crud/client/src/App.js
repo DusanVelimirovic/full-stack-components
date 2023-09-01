@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Books from "./pages/Books/Books.jsx";
 import Add from "./pages/Add/Add.jsx";
 import Update from "./pages/Update/Update.jsx";
+import Read from "./pages/Read/Read.jsx";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Books />} />
           <Route path="/add" element={<Add />} />
           <Route path="/update/:id" element={<Update />} />
+          <Route path="/read/:id" element={<Read />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -27,6 +27,7 @@ const Update = () => {
     const navigate = useNavigate();
   
     // Get book ID from url path
+    // Alternative to useParams()
     const bookId = location.pathname.split("/")[2];
 
   //useEffect

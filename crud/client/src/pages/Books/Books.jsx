@@ -35,6 +35,7 @@ const Books = () => {
   };
 
 
+
   return (
     <div>
     <h1>FullStack Crud Component</h1>
@@ -45,13 +46,21 @@ const Books = () => {
           <h2>{book.title}</h2>
           <p>{book.desc}</p>
           <span>${book.price}</span>
-          <button className="delete" onClick={() => handleDelete(book.id)}>Delete</button>
+          <button className="read" onClick={() => handleDelete(book.id)}>Delete</button>
           <button className="update">
             <Link
               to={`/update/${book.id}`}
               style={{ color: "inherit", textDecoration: "none" }}
             >
               Update
+            </Link>
+           </button>
+           <button className="read">
+            <Link
+              to={`/read/${book.id}`}
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              Read
             </Link>
            </button>
         </div>
