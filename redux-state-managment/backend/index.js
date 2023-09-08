@@ -12,7 +12,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/api/users/:id/update", (req, res) => {
-  res.send("Success");
+  setTimeout(() => {
+    res.send(req.body);
+  }, [2000]);
 });
 
 app.listen(8800, () => {
