@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BookAPI } from "../../apis/apiBooks";
 
 const Books = () => {
 
@@ -10,29 +11,28 @@ const Books = () => {
   // Update state from backend
   const [books, setBooks] = useState([]);
 
-  //useEffect
-  // Access and fetch data from backend api
-  useEffect(() => {
-    const fetchAllBooks = async () => {
-      try {
-        const res = await axios.get("http://localhost:8800/api/books");
-        setBooks(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchAllBooks();
+  // Fetch all book from DB
+  useEffect( () => {
+    BookAPI.getAll()
+    .then((books) => {
+      console.log("Books", books.data)
+      setBooks(books.data);
+    })
+    .catch((err) => {
+      console.log("Error-" + err); //err.message
+    })
   }, []);
 
-  // Delete book from DB
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:8800/api/books/${id}`);
-      window.location.reload()
-    } catch (err) {
-      console.log(err);
-    }
-  };
+ // Delete book from DB
+
+ const handleDelete = (id) => {
+  try{
+    BookAPI.delete(id);
+    window.location.reload();
+  } catch (err) {
+    console.log(err);
+  }
+ }
 
 
 
@@ -40,16 +40,16 @@ const Books = () => {
     <div>
     <h1>FullStack Crud Component</h1>
     <div className="books">
-      {books.map((book) => (
-        <div key={book.id} className="book">
-          <img src={book.cover} alt="" />
-          <h2>{book.title}</h2>
-          <p>{book.desc}</p>
-          <span>${book.price}</span>
-          <button className="read" onClick={() => handleDelete(book.id)}>Delete</button>
+      {books.map((books) => (
+        <div key={books.id} className="book">
+          <img src={books.cover} alt="" />
+          <h2>{books.title}</h2>
+          <p>{books.desc}</p>
+          <span>${books.price}</span>
+          <button className="read" onClick={() => handleDelete(books.id)}>Delete</button>
           <button className="update">
             <Link
-              to={`/update/${book.id}`}
+              to={`/update/${books.id}`}
               style={{ color: "inherit", textDecoration: "none" }}
             >
               Update
@@ -57,7 +57,7 @@ const Books = () => {
            </button>
            <button className="read">
             <Link
-              to={`/read/${book.id}`}
+              to={`/read/${books.id}`}
               style={{ color: "inherit", textDecoration: "none" }}
             >
               Read

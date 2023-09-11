@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { BookAPI } from "../../apis/apiBooks";
+
+
 
 const Update = () => {
 
   // Update current books details
-  
   const [currentBook, setCurrentBook] = useState({
-    title: "",
+    title: "", 
     desc: "",
     price: "",
     cover: "",
@@ -20,30 +22,29 @@ const Update = () => {
     cover: "",
   });
 
+
+
     // Handle errors
     const [error,setError] = useState(false)
 
     const location = useLocation();
-    const navigate = useNavigate();
-  
+    const navigate = useNavigate(); 
+
+   
     // Get book ID from url path
     // Alternative to useParams()
     const bookId = location.pathname.split("/")[2];
 
-  //useEffect
-  // Access and fetch data from backend api
-  useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8800/api/books/${bookId}`);
-        setCurrentBook(res.data[0]);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchBook();
-
-  },[bookId]);
+  // Fetch current book
+  useEffect( () => {
+    BookAPI.get(bookId)
+    .then((book) => {
+      setCurrentBook(book.data[0]);
+    })
+    .catch((err) => {
+      console.log("Error-" + err); //err.message
+    })
+  }, []);
 
 
 
@@ -51,17 +52,17 @@ const Update = () => {
     setBook((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleClick = async (e) => {
+  // Update book
+  const handleClick = (e) => {
     e.preventDefault();
-
-    try {
-      await axios.put(`http://localhost:8800/api/books/${bookId}`, book);
-      navigate("/"); // redirect to Home page
-    } catch (err) {
+    try{
+      BookAPI.update(bookId, book);
+      navigate("/");
+    } catch (err){
       console.log(err);
       setError(true);
     }
-  };
+  }
 
   return (
     <div className="form">

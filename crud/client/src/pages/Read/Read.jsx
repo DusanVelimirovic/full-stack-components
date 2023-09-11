@@ -1,34 +1,30 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BookAPI } from "../../apis/apiBooks";
 
 const Books = () => {
 
-    const location = useLocation();
-    const navigate = useNavigate();
+  const location = useLocation();
 
   //useState
   // Update state from backend
-  const [book, setBook] = useState([]);
+  const [book, setBook] = useState([]); 
 
-    // Get book ID from url path
-    // Alternative to useParams()
-const bookId = location.pathname.split("/")[2];
+  // Get book ID from url path
+  // Alternative to useParams()
+  const bookId = location.pathname.split("/")[2];
 
-  //useEffect
-  // Access and fetch data from backend api
-  useEffect(() => {
-    const fetchBook = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8800/api/books/${bookId}`);
-        setBook(res.data[0]);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchBook();
-
-  },[bookId]);
+  // Get Book data
+  useEffect( () => {
+    BookAPI.get(bookId)
+    .then((book) => {
+      setBook(book.data[0]);
+    })
+    .catch((err) => {
+      console.log("Error-" + err); //err.message
+    })
+  }, []);
 
   return (
     <div>

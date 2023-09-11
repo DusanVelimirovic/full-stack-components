@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { BookAPI } from "../../apis/apiBooks";
 
 const Add = () => {
 
@@ -23,10 +24,10 @@ const Add = () => {
   };
 
   // Send data to the backend API
-  const handleClick = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8800/api/books", book);
+      BookAPI.create(book)
       navigate("/");
     } catch (err) {
       console.log(err);
