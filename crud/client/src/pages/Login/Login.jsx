@@ -49,10 +49,10 @@ const handleLogin = async (e) => {
 
 
 
-  if(formErrors.email !== undefined && formErrors.password !== undefined) {
+  if(formErrors.email === undefined && formErrors.password === undefined) {
 
     try{
-      await login(inputs);
+      await login(inputs); 
       // After succesufull login navigate to home page
       navigate("/");
     } catch (err){

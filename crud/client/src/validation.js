@@ -20,8 +20,8 @@ export default function Validation(values) {
   //Validate password
   if (!values.password) {
     errors.password = "Password is required";
-  } else if (values.password.length < 10) {
-    errors.password = "Password must be more than 10 characters";
+  } else if (values.password.length < 5) {
+    errors.password = "Password must be more than 5 characters";
   }
 
   // validate password confirmation

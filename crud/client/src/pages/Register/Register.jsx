@@ -46,7 +46,7 @@ const handleClick = async e => {
   // Send API request only if formErrors are empty
   
 
-  if(formErrors.username !== undefined && formErrors.email !== undefined && formErrors.password !== undefined) {
+  if(formErrors.username === undefined && formErrors.email === undefined && formErrors.password === undefined) {
     try {
       await axios.post("http://localhost:8800/api/auth/register", others);
       navigate("/login");

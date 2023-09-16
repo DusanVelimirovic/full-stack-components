@@ -3,12 +3,15 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { BookAPI } from "../../apis/apiBooks";
+import axios from "axios";
+
 
 const Books = () => {
 
   //useState
   // Update state from backend
   const [books, setBooks] = useState([]);
+
 
   // Fetch all book from DB
   useEffect( () => {
@@ -23,7 +26,6 @@ const Books = () => {
   }, []);
 
  // Delete book from DB
-
  const handleDelete = (id) => {
   try{
     BookAPI.delete(id);
@@ -33,11 +35,28 @@ const Books = () => {
   }
  }
 
+ // Handle Logout
+ const handleLogout = () => {
+
+      axios.get("http://localhost:8800/api/auth/logout")
+      .then(res => {
+        localStorage.clear();
+        window.location.reload();
+      }).catch(err => console.log(err));
+
+ }
+
+
+
+
 
 
   return (
     <div>
     <h1>FullStack Crud Component</h1>
+        <button className="loginRegisterButton" onClick={handleLogout} >
+            Logout
+        </button>
     <div className="books">
       {books.map((books) => (
         <div key={books.id} className="book">
