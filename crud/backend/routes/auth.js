@@ -13,6 +13,6 @@ const router = express.Router();
 // Use functions from auth controller
 router.post("/register", register);
 router.post("/login", login);
-router.post("/logout", logout);
+router.get("/logout", logout);
 
 export default router;
