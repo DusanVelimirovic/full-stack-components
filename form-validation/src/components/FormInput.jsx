@@ -2,7 +2,10 @@ import { useState } from "react";
 import "./formInput.css";
 
 const FormInput = (props) => {
+  // Keep track of the field with user has been selected
   const [focused, setFocused] = useState(false);
+
+  // Destructuring props - form input properties
   const { label, errorMessage, onChange, id, ...inputProps } = props;
 
   const handleFocus = (e) => {

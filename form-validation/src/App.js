@@ -3,6 +3,7 @@ import "./app.css";
 import FormInput from "./components/FormInput";
 
 const App = () => {
+  // Update when user start to typing
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -11,6 +12,7 @@ const App = () => {
     confirmPassword: "",
   });
 
+  // Input properties
   const inputs = [
     {
       id: 1,
@@ -66,6 +68,8 @@ const App = () => {
     e.preventDefault();
   };
 
+  // Event function witch update values
+  // Search for input name and associate with value
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
