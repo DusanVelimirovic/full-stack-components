@@ -1,24 +1,44 @@
 // Import external Modules
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
+import FormInput from "../../validation/formInput";
 
 
 // Import Internal modules
 import "./login.css";
-import Validation from "../../validation.js";
 import { AuthContext } from "../../context/authContext";
 
 export default function Login() {
 
    // Collect inputs from Login form
-   const [inputs, setInputs] = useState({
+   const [values, setValues] = useState({
     email: "", 
     password: ""
   });
 
-  
-  // Handle errors during login (validation process)
-  const [formErrors, setFormErrors] = useState({});
+
+  // Form Inputs
+    // Input properties
+    const inputs = [
+      {
+        id: 1,
+        name: "email",
+        type: "email",
+        placeholder: "Email",
+        errorMessage: "It should be a valid email address!",
+        label: "Email",
+        required: true,
+      },
+      {
+        id: 2,
+        name: "password",
+        type: "password",
+        placeholder: "Password",
+        label: "Password",
+        required: true,
+      },
+    ];
+
 
   // Handle errors from server side
   const [err, setError] = useState(null);
@@ -29,12 +49,10 @@ export default function Login() {
   const navigate = useNavigate();
 
 
-
-
   // Handle changes in form input fields
   // Pass data as callback to setInputs()
   const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value}));
+    setValues((prev) => ({ ...prev, [e.target.name]: e.target.value}));
   };
 
 
@@ -44,56 +62,36 @@ const { login } = useContext(AuthContext);
 const handleLogin = async (e) => {
   e.preventDefault();
 
-  // Pass all form values(inputs) for validation
-  setFormErrors(Validation(inputs));
-
-
-
-  if(formErrors.email === undefined && formErrors.password === undefined) {
 
     try{
-      await login(inputs); 
+      await login(values); 
       // After succesufull login navigate to home page
       navigate("/");
     } catch (err){
       setError(err.response.data);
     }
-}
-
-  };
+};
 
   return (
-    <div className="login">
-      <span className="loginTitle">Login</span>
-      <form className="loginForm">
-        <label>Email</label>
-        <input
-          type="text"
-          className="loginInput"
-          placeholder="Enter your email..."
-          name="email" 
-          onChange={handleChange}
-        />
-        <p> {formErrors.email} </p>
-        <label>Password</label>
-        <input
-          type="password"
-          className="loginInput"
-          placeholder="Enter your password..."
-          name="password" onChange={handleChange}
-        />
-        <p> {formErrors.password} </p>
+    <div className="app">
+      <form onSubmit={handleLogin}>
+        <h1>Register</h1>
+        {inputs.map((input) => (
+          <FormInput
+            key={input.id}
+            {...input}
+            value={values[input.name]}
+            onChange={handleChange}
+          />
+        ))}
         {err && err}
-        <button onClick={handleLogin} className="loginButton">
-          Login
-        </button>
+        <button>Login</button>
       </form>
       <Link to="/register">
-        <button className="loginRegisterButton">
+        <button className="loginRegisterButton" >
             Register
         </button>
       </Link>
-
     </div>
   );
 }
