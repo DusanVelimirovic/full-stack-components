@@ -27,4 +27,7 @@ export const BookAPI = {
   create: async function (book) {
     await axios.post("http://localhost:8800/api/books", book);
   },
+  register: async function (values) {
+    await axios.post("http://localhost:8800/api/auth/register", values);
+  },
 };

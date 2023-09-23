@@ -5,11 +5,11 @@ import { Link } from "react-router-dom";
 import { BookAPI } from "../../apis/apiBooks";
 import axios from "axios";
 
-
+ 
 const Books = () => {
-
+ 
   //useState
-  // Update state from backend
+  // Update state from backend 
   const [books, setBooks] = useState([]);
 
 
@@ -45,11 +45,6 @@ const Books = () => {
       }).catch(err => console.log(err));
 
  }
-
-
-
-
-
 
   return (
     <div>

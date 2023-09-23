@@ -1,11 +1,11 @@
 // Import internal modules
 import "./register.css";
 import FormInput from "../../validation/formInput";
+import { BookAPI } from "../../apis/apiBooks";
 
 // Import external Modules
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
  
 export default function Register() {
 
@@ -89,7 +89,7 @@ const handleRegister = async e => {
 
   // Send Register API request
     try {
-      await axios.post("http://localhost:8800/api/auth/register", others);
+      BookAPI.register(others);
       navigate("/login");
     }
   

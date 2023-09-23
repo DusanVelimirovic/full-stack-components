@@ -75,7 +75,7 @@ const handleLogin = async (e) => {
   return (
     <div className="app">
       <form onSubmit={handleLogin}>
-        <h1>Register</h1>
+        <h1>Login</h1>
         {inputs.map((input) => (
           <FormInput
             key={input.id}
