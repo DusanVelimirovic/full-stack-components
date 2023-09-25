@@ -1,23 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import { useMemo } from "react";
+import { userTable } from "./fakeData.js";
+import { useTable } from "react-table";
 
 function App() {
+  const data = useMemo(() => userTable, []);
+  const columns = useMemo(
+    () => [
+      {
+        header: "ID",
+        accessor: "id",
+      },
+      {
+        header: "Name",
+        accessor: "name",
+      },
+      {
+        header: "Email",
+        accessor: "email",
+      },
+      {
+        header: "Phone",
+        accessor: "phone",
+      },
+      {
+        header: "FormName",
+        accessor: "formName",
+      },
+      {
+        header: "Status",
+        accessor: "status",
+      },
+    ],
+    []
+  );
+
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((header) => (
+              <tr {...header.getHeaderGroupProps()}>
+                {header.headers.map((column) => (
+                  <th {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
