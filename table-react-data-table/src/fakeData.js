@@ -1,0 +1,42 @@
+export const userTable = [
+  {
+    id: 1,
+    name: " John C",
+    email: "john@gmail.com",
+    phone: "+381612223334",
+    formName: "E0 Nurse Aid Training Program",
+    status: "active",
+  },
+  {
+    id: 2,
+    name: " John C",
+    email: "john@gmail.com",
+    phone: "+381612223334",
+    formName: "E0 Nurse Aid Training Program",
+    status: "active",
+  },
+  {
+    id: 3,
+    name: " John C",
+    email: "john@gmail.com",
+    phone: "+381612223334",
+    formName: "E0 Nurse Aid Training Program",
+    status: "active",
+  },
+  {
+    id: 4,
+    name: " John C",
+    email: "john@gmail.com",
+    phone: "+381612223334",
+    formName: "E0 Nurse Aid Training Program",
+    status: "active",
+  },
+  {
+    id: 5,
+    name: " John C",
+    email: "john@gmail.com",
+    phone: "+381612223334",
+    formName: "E0 Nurse Aid Training Program",
+    status: "active",
+  },
+];
