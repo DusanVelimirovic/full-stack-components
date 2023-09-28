@@ -4,7 +4,7 @@ import "./Modal.css";
 
 export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
   
-  // Use to pass data to the modal form inputs
+  // Use to pass data to the modal form inputs and update data
   const [formState, setFormState] = useState(
     defaultValue || {
       page: "",
@@ -14,6 +14,7 @@ export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
   );
   const [errors, setErrors] = useState("");
 
+  // Helper function use to validate the form data
   const validateForm = () => {
     if (formState.page && formState.description && formState.status) {
       setErrors("");
@@ -30,22 +31,27 @@ export const Modal = ({ closeModal, onSubmit, defaultValue }) => {
     }
   };
 
+  // Collect data from form inputs when user is typing
   const handleChange = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
+  // Controll handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Just return if we have some error
     if (!validateForm()) return;
 
+    // Pass form data
     onSubmit(formState);
 
-    closeModal();
+    closeModal(); // Close the modal
   };
 
   return (
     /* Modal container */
+    /* Control displaing modal */
     <div
       className="modal-container"
       onClick={(e) => {

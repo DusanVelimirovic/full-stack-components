@@ -20,7 +20,7 @@ export const Table = ({ rows, deleteRow, editRow }) => {
           {/* Render table data passed from props */}
           {rows.map((row, idx) => {
             const statusText =
-              row.status.charAt(0).toUpperCase() + row.status.slice(1);
+              row.status.charAt(0).toUpperCase() + row.status.slice(1); // Convert status data into upper case
 
             return (
               <tr key={idx}>

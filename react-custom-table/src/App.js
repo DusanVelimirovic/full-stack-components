@@ -8,7 +8,8 @@ function App() {
   // Env variable with control modal display
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Initial data
+  // Initial data and set metod (allow us to change the data)
+  // setRow is more like halper method passed to handleDelete method
   // Later, we need to replace that with data from DB
   const [rows, setRows] = useState([
     {
@@ -29,16 +30,23 @@ function App() {
   ]);
   const [rowToEdit, setRowToEdit] = useState(null);
 
+  // Handle delete row - passed like a prop to the table component
   const handleDeleteRow = (targetIndex) => {
     setRows(rows.filter((_, idx) => idx !== targetIndex));
   };
 
+  // Handle edit data - in the interface it is pencil in the right hand side
+  // This function is passed to table container
   const handleEditRow = (idx) => {
     setRowToEdit(idx);
 
     setModalOpen(true);
   };
 
+  // Handle submiting new row - pass function like prop to the modal component
+  // Contolling with if-else
+  // First case: if we only want to add new row
+  // Second case: if we want to edit existing row
   const handleSubmit = (newRow) => {
     rowToEdit === null
       ? setRows([...rows, newRow])
@@ -53,7 +61,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* Import table component */}
+      {/* Import table component and pass table component data, and table data methods */}
       <Table rows={rows} deleteRow={handleDeleteRow} editRow={handleEditRow} />
 
       {/* add button control modal display */}
